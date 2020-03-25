@@ -140,7 +140,7 @@ function showMenu(wrongChoice, correctChoice) {
             retryMenu.removeEventListener("click", toBeRemoved);
             resetGame();
         });
-    }, 500);
+    }, 501);
 }
 
 function resetGame() {
