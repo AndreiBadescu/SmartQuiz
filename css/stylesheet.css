@@ -18,7 +18,7 @@ button {
     border-radius: 1.375rem;
     font-size: 3rem;
     width: 24rem;
-    padding: 1.3rem;
+    padding: 1.4rem;
     margin: 0.5rem;
 }
 
@@ -127,7 +127,7 @@ p {
     margin: 0;
     font-size: 2rem;
     background-color: grey;
-    border-radius: 22px;
+    border-radius: 1.375rem;
     z-index: 1;
 }
 
