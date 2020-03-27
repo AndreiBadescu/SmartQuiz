@@ -51,7 +51,7 @@ p {
 .ans_group button {
     background-color: #fae9c0;
     color: black;
-    padding-left: 1rem;
+    padding-left: 1.5rem;
 }
 
 .ans_group button:hover {
