@@ -20,6 +20,7 @@ FBInstant.initializeAsync()
 // Miscellaneous
 var question = document.getElementById("question");
 var questionImg = document.getElementById("question_img");
+var preloadedImg = new Image();
 var obj; // = questions[index]
 var index; // the question's number
 var max = questions.length;
@@ -173,8 +174,19 @@ function playerGuess(index) {
         obj = questions[qPerm[index]];
         question.innerHTML = (1 + index) + ') ' + obj.question;
 
+        // preloading next image
+        var preloadNextImg = function() {
+            preloadedImg.src = "img/" + qPerm[index] + ".jpg";
+            // checking the file extension
+            preloadedImg.onerror = function() {
+                // changing it to the good one
+                preloadedImg.src = "img/" + qPerm[index] + ".png";
+            }
+        }
+        preloadNextImg();
+
         // setting the question image
-        var setImage = function() {
+        var setImg = function() {
             questionImg.src = "img/" + qPerm[index] + ".jpg";
             // checking the file extension
             questionImg.onerror = function() {
@@ -185,7 +197,7 @@ function playerGuess(index) {
                 }
             }
         }
-        setImage();
+        setImg();
 
         // generating a random permutation of the answer options
         aPerm = []; // emptying the array !inside the genPerm function won't work!
