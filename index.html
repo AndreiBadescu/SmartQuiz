@@ -28,22 +28,32 @@
     </div>
     <!-- END OF HOME MENU-->
 
+    <!-- SETIINGS MENU -->
     <div id="settings_menu" class="hidden">
-        <button class="go_back">GO BACK</button>
+        <button class="go_back_btn">GO BACK</button>
     </div>
 
     <div id="credits_menu" class="hidden">
         <div id="credits">
             <p>Creator: Andrei Bădescu</p>
         </div>
-        <button class="go_back">GO BACK</button>
+        <button class="go_back_btn">GO BACK</button>
     </div>
+    <!-- END OF SETIINGS MENU -->
 
     <!-- GAME -->
     <div id="game" class="hidden">
+        <!-- QUESTION -->
         <div id="question_block" class="">
             <p id="question"></p>
         </div>
+        <!-- END OF QUESTION -->
+
+        <!-- IMG (using data:gif to not get any error for using an empty src) -->
+        <img id="question_img" src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" alt="">
+        <!-- END OF IMG -->
+
+        <!-- ANSWER OPTIONS -->
         <div id="answers_block" class="">
             <div class="ans_group">
                 <button id="0"></button>
@@ -54,6 +64,7 @@
                 <button id="3"></button>
             </div>
         </div>
+        <!-- END OF ANSWER OPTIONS -->
     </div>
     <!-- END OF GAME -->
 
