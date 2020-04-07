@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="full-screen" content="yes" />
     <meta name="screen-orientation" content="portrait" />
-    <title> Smart Quiz </title>
+    <title>Smart Quiz</title>
     <!-- LINKS -->
     <link rel="shortcut icon" href="#">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
@@ -43,6 +43,16 @@
 
     <!-- GAME -->
     <div id="game" class="hidden">
+        <div class="max-width">
+        <!-- INFO BAR -->
+            <div id="info_bar">
+                <p id="score"></p>
+                <p id="time_left"></p>
+                <a role="button" id="exit_btn"></a>
+            </div>
+        <!-- END OF INFO BAR -->
+        </div>
+        
         <!-- QUESTION -->
         <div id="question_block" class="">
             <p id="question"></p>

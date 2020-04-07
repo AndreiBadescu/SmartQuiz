@@ -71,8 +71,58 @@ p {
     padding: 1.4rem;
 }
 
+.max-width {
+    width: 80%;
+    margin: auto;
+}
+
 #game {
     margin: 0;
+}
+
+#info_bar {
+    background-color: rgba(0, 0, 0, 0.5);
+    display: block;
+    height: 5vh;
+    position: fixed;
+    left: 0;
+    right: 0;
+}
+
+#score {
+    color: #d1d1d1;
+    position: absolute;
+    font-size: 3.65vh;
+    float: left;
+    left: calc(10vw - 0.4rem);
+}
+
+#time_left {
+    font-size: 3.65vh;
+    display: flex;
+    justify-content: center;
+}
+
+#exit_btn {
+    opacity: 0.85;
+}
+
+#exit_btn:before, #exit_btn:after {
+    position: absolute;
+    top: 0.5vh;
+    right: calc(10vw + 2vh - 0.7rem);
+    content: '';
+    width: 0.3rem;
+    height: 4vh;
+    background-color: red;
+}
+
+#exit_btn:before {
+  transform: rotate(45deg);
+}
+
+#exit_btn:after {
+  transform: rotate(-45deg);
 }
 
 #start_btn {
@@ -86,7 +136,7 @@ p {
     background-color: #007ede;
     color: #11ff00;
     display: block;
-    margin: 5% auto;
+    margin: 5% auto; /* 5% because settings btn is the middle one*/
 }
 
 #credits {
@@ -101,13 +151,12 @@ p {
     color: #11ff00;
     display: block;
     margin: 0 auto;
-    border: ;
 }
 
 #question {
     font-size: 3.5rem;
     text-align: center;
-    padding: 1.75rem 3rem;
+    padding: 5vh 3rem;
 }
 
 #question_block {
@@ -123,9 +172,12 @@ p {
     border: 0.4rem solid black;
     border-radius: 1.25rem;
 }
-
-#answers_block {}
-
+/*
+#answers_block {
+    width: 80%;
+    margin: 0 auto;
+}
+*/
 #answers_block button {
     margin: 0.5rem;
 }
@@ -223,6 +275,18 @@ p {
         background-color: #d9caa7;
     }
 
+    #score:hover {
+        color: white;
+    }
+
+    #exit_btn {
+        opacity: 0.7;
+    }
+
+    #exit_btn:hover {
+        opacity: 1;
+    }
+
     #start_btn:hover {
         background-color: #0067b5;
     }
@@ -233,6 +297,10 @@ p {
 
     #credits_btn:hover {
         background-color: #0067b5;
+    }
+
+    #exit_btn:hover {
+        color: pink;
     }
 
     #playagain_btn:hover {
@@ -271,9 +339,10 @@ p {
         text-align: left;
     }
 }
-
+/*
 @media (min-width: 1281px) {
-    #game {
+    #game, #exit_btn {
         margin: 0 calc(100vw / 20);
     }
 }
+*/

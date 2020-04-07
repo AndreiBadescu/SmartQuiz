@@ -18,6 +18,10 @@ FBInstant.initializeAsync()
     });
 */
 // Miscellaneous
+var score = document.getElementById("score");
+var timeDisplayed = document.getElementById("time_left");
+var timeLeft;
+var stopWatch;
 var question = document.getElementById("question");
 var questionImg = document.getElementById("question_img");
 var preloadedImg = new Image();
@@ -44,6 +48,7 @@ var settingsBtn = document.getElementById("settings_btn");
 var creditsBtn = document.getElementById("credits_btn");
 var playagainBtn = document.getElementById("playagain_btn");
 var homeBtn = document.getElementById("home_btn");
+var exitBtn = document.getElementById("exit_btn");
 var option = [
     document.getElementById("0"),
     document.getElementById("1"),
@@ -55,11 +60,13 @@ var startSound = new Audio("audio/start.mp3");
 var clickMenuSound = new Audio("audio/clickMenu.mp3");
 var correctSound = new Audio("audio/correct.mp3");
 var wrongSound = new Audio("audio/wrong.mp3");
+var clocktickSound = new Audio("audio/clocktick.mp3");
 
 // MAKING BUTTONS WORK
 startBtn.addEventListener("click", startGame);
 settingsBtn.addEventListener("click", goToSettings);
 creditsBtn.addEventListener("click", goToCredits);
+exitBtn.addEventListener("click", resetGame);
 addListeners(option); // answer buttons
 // PRELOADING AUDIOS
 startSound.preload = "auto";
@@ -80,6 +87,7 @@ function show(element) {
 }
 
 function checkAns(event) {
+    clearInterval(stopWatch);
     // checking the option the player chose
     if (aPerm[event.target.id] == obj.key) {
         // CORRECT GUESS
@@ -92,7 +100,8 @@ function checkAns(event) {
             playerGuess(++index);
         }
         setTimeout(next, 500, event.target); //
-    } else {
+    } 
+    else {
         // WRONG GUESS
         // looking for the correct answer
         for (let i = 0; i < numberOfOptions; ++i) {
@@ -111,7 +120,6 @@ function checkAns(event) {
 
         // next step: showing the Try Again Menu
         function next(wrongChoice, correctChoice) {
-            game.className = "";
             showMenu(wrongChoice, correctChoice);
         }
         setTimeout(next, 800, event.target, option[ans]);
@@ -166,14 +174,78 @@ function genPerm(arr, len) {
     }
 }
 
+// making the buttons have the best possible padding
+function dynamicPadding() {
+    let minPadding = 100000,
+        // 40% width of the viewport
+        doc_40vw = 4 * document.documentElement.clientWidth / 10,
+        // 90% width of the viewport
+        doc_90vw = 9 * document.documentElement.clientWidth / 10;
+
+    for (let i = 0; i < numberOfOptions; ++i) {
+        // checking for small screens
+        if (document.documentElement.clientWidth > 768)
+            minPadding = Math.min(minPadding, doc_40vw - option[i].clientWidth);
+        else
+            minPadding = Math.min(minPadding, doc_90vw - option[i].clientWidth);
+    }
+
+    // padding must be divided in order to center the text near center 
+    minPadding /= 2;
+
+    // applying the styling for all the answer buttons
+    for (let i = 0; i < numberOfOptions; ++i) {
+        // in this case the media screen styling will apply
+        if (document.documentElement.clientWidth > 768)
+            option[i].style.width = "40vw"; // - margin
+        else
+            option[i].style.width = "90vw";
+        // top, bottom and right padding
+        option[i].style.padding = "1.4rem"
+        // this is the dynamic padding
+        option[i].style.paddingLeft = minPadding + "px";
+    }
+};
+
+function countdown() {
+    --timeLeft;
+    timeDisplayed.innerHTML = timeLeft + "s";
+    if(timeLeft == 0) {
+        clearInterval(stopWatch);
+        wrongSound.play();
+        game.className = "vibration";
+        showMenu();
+    }
+    else if(timeLeft > 0) 
+    {
+        if (timeLeft > 10)
+            timeDisplayed.style.color = "#09d402";
+        else if (timeLeft > 5)
+                timeDisplayed.style.color = "orange";
+        else {
+            clocktickSound.play();
+            if (timeLeft > 3)
+                timeDisplayed.style.color = "#ff4d4d";
+            else
+                timeDisplayed.style.color = "red";
+        }
+    }
+}
+
 // processing the player's answer
 function playerGuess(index) {
     Transition();
     // Checking if there are any questions left to display
     if (index < max) {
+        // creating a stopwatch
+        timeDisplayed.style.color = "#09d402";
+        timeDisplayed.innerHTML = "15s";
+        stopWatch = setInterval(countdown, 1000, timeLeft = 16);
+        // updating the score
+        score.innerHTML = "SCORE: " + index;
         // displaying the question
         obj = questions[qPerm[index]];
-        question.innerHTML = (1 + index) + ') ' + obj.question;
+        question.innerHTML = obj.question;
         // changing the question image
         questionImg.src = preloadedImg.src;
         // preload next image
@@ -194,39 +266,7 @@ function playerGuess(index) {
             option[i].style.padding = "0";
         }
 
-        // making the buttons have the best possible padding
-        var dynamicPadding = function() {
-            let minPadding = 100000,
-                // 40% width of the viewport
-                doc_40vw = 4 * document.documentElement.clientWidth / 10,
-                // 90% width of the viewport
-                doc_90vw = 9 * document.documentElement.clientWidth / 10;
-
-            for (let i = 0; i < numberOfOptions; ++i) {
-                // checking for small screens
-                if (document.documentElement.clientWidth > 768)
-                    minPadding = Math.min(minPadding, doc_40vw - option[i].clientWidth);
-                else
-                    minPadding = Math.min(minPadding, doc_90vw - option[i].clientWidth);
-            }
-
-            // padding must be divided in order to center the text near center 
-            minPadding /= 2;
-
-            // applying the styling for all the answer buttons
-            for (let i = 0; i < numberOfOptions; ++i) {
-                // in this case the media screen styling will apply
-                if (document.documentElement.clientWidth > 768)
-                    option[i].style.width = "40vw";
-                else
-                    option[i].style.width = "90vw";
-                // top, bottom and right padding
-                option[i].style.padding = "1.4rem"
-                // this is the dynamic padding
-                option[i].style.paddingLeft = minPadding + "px";
-            }
-        };
-        // calling the function
+        // adjusting the padding
         dynamicPadding();
     } 
     else if (index == max) {
@@ -241,8 +281,10 @@ function showMenu(wrongChoice, correctChoice) {
 
     var toBeRemoved = function(event) {
         // removing the background colors
-        wrongChoice.className = "hover";
-        correctChoice.className = "hover";
+        if (wrongChoice)
+            wrongChoice.className = "hover";
+        if (correctChoice)
+            correctChoice.className = "hover";
 
         hide(retryMenu);
 
@@ -289,7 +331,10 @@ function goToCredits() {
 }
 
 function resetGame() {
+    clearInterval(stopWatch);
+    timeDisplayed.style.color = "black";
     gameWindow.className = "";
+    game.className = "";
     hideFilters(); //stops the filters from using the transition when going back to 0
     Transition();
     show(startMenu);
@@ -297,15 +342,13 @@ function resetGame() {
 }
 
 function startGame() {
-    show(greyFilter); // filter is now using the transiton property
-
-    hide(startMenu);
-    show(game);
-
     qPerm = [];
     genPerm(qPerm, max);
     preloadedImg.src = "img/" + qPerm[0] + ".jpg";; // loading the first image
 
+    show(greyFilter); // filter is now using the transiton property
+    hide(startMenu);
+    show(game);
     startSound.play();
     playerGuess(index = 0);
 }
