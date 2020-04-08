@@ -230,10 +230,10 @@ function countdown() {
     --timeLeft;
     timeDisplayed.innerHTML = timeLeft + "s";
     if (timeLeft == 0) {
-        clearInterval(stopWatch);
         wrongSound.play();
         game.className = "vibration";
         showMenu();
+        clearInterval(stopWatch);
     }
     else if (timeLeft > 0) 
     {
