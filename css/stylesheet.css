@@ -110,9 +110,9 @@ p {
 #exit_btn:before, #exit_btn:after {
     position: absolute;
     top: 0.5vh;
-    right: calc(10vw + 2vh - 0.7rem);
+    right: calc(10vw + 1.41vh - 0.4rem);
     content: '';
-    width: 0.3rem;
+    width: 4px;
     height: 4vh;
     background-color: red;
 }
@@ -325,6 +325,14 @@ p {
 }
 
 @media (max-width: 768px) {
+    #score {
+        left: 2px;
+    }
+
+    #exit_btn:before, #exit_btn:after {
+        right: 2vh;
+    }
+
     #question {
         font-size: 3.1rem;
     }

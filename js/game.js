@@ -61,18 +61,24 @@ var clickMenuSound = new Audio("audio/clickMenu.mp3");
 var correctSound = new Audio("audio/correct.mp3");
 var wrongSound = new Audio("audio/wrong.mp3");
 var clocktickSound = new Audio("audio/clocktick.mp3");
+var currentPlayer;
 
 // MAKING BUTTONS WORK
 startBtn.addEventListener("click", startGame);
 settingsBtn.addEventListener("click", goToSettings);
 creditsBtn.addEventListener("click", goToCredits);
-exitBtn.addEventListener("click", resetGame);
-addListeners(option); // answer buttons
+exitBtn.addEventListener("click", function(){
+    playAudio(clickMenuSound);
+    clearInterval(stopWatch);
+    resetGame();
+});
+
 // PRELOADING AUDIOS
 startSound.preload = "auto";
 clickMenuSound.preload = "auto";
 correctSound.preload = "auto";
 wrongSound.preload = "auto";
+clocktickSound.preload = "auto";
 
 // hidding an element
 function hide(element) {
@@ -86,8 +92,14 @@ function show(element) {
         element.classList.remove("hidden");
 }
 
+function playAudio(sound) {
+    sound.currentTime = 0;
+    sound.play();
+}
+
 function checkAns(event) {
     clearInterval(stopWatch);
+    removeListeners(option); // block the other options
     // checking the option the player chose
     if (aPerm[event.target.id] == obj.key) {
         // CORRECT GUESS
@@ -126,7 +138,14 @@ function checkAns(event) {
     }
 }
 
-// adding click event listener for every answer option available in the game
+// removing click event listeners for every answer option available in the game
+function removeListeners(option) {
+    for (let i = 0; i < numberOfOptions; ++i) {
+        option[i].removeEventListener("click", checkAns);
+    }
+}
+
+// adding click event listeners for every answer option available in the game
 function addListeners(option) {
     for (let i = 0; i < numberOfOptions; ++i) {
         option[i].addEventListener("click", checkAns);
@@ -210,22 +229,22 @@ function dynamicPadding() {
 function countdown() {
     --timeLeft;
     timeDisplayed.innerHTML = timeLeft + "s";
-    if(timeLeft == 0) {
+    if (timeLeft == 0) {
         clearInterval(stopWatch);
         wrongSound.play();
         game.className = "vibration";
         showMenu();
     }
-    else if(timeLeft > 0) 
+    else if (timeLeft > 0) 
     {
         if (timeLeft > 10)
-            timeDisplayed.style.color = "#09d402";
+            timeDisplayed.style.color = "#09d402"; // green
         else if (timeLeft > 5)
                 timeDisplayed.style.color = "orange";
         else {
             clocktickSound.play();
             if (timeLeft > 3)
-                timeDisplayed.style.color = "#ff4d4d";
+                timeDisplayed.style.color = "#ff4d4d"; // light red
             else
                 timeDisplayed.style.color = "red";
         }
@@ -235,6 +254,7 @@ function countdown() {
 // processing the player's answer
 function playerGuess(index) {
     Transition();
+    addListeners(option); // answer buttons
     // Checking if there are any questions left to display
     if (index < max) {
         // creating a stopwatch
@@ -276,6 +296,7 @@ function playerGuess(index) {
 }
 
 function showMenu(wrongChoice, correctChoice) {
+    clearInterval(stopWatch);
     useFilters();
     show(retryMenu);
 
@@ -296,7 +317,7 @@ function showMenu(wrongChoice, correctChoice) {
             startGame();
         } 
         else {
-            clickMenuSound.play();
+            playAudio(clickMenuSound);
         }
     };
 
@@ -305,26 +326,26 @@ function showMenu(wrongChoice, correctChoice) {
 }
 
 function goToSettings() {
-    clickMenuSound.play();
+    playAudio(clickMenuSound);
     hide(startMenu);
     show(settingsMenu);
 
     var goBackBtn = document.getElementsByClassName("go_back_btn")[0];
     goBackBtn.addEventListener("click", function() {
-        clickMenuSound.play();
+        playAudio(clickMenuSound);
         hide(settingsMenu);
         show(startMenu);
     });
 }
 
 function goToCredits() {
-    clickMenuSound.play();
+    playAudio(clickMenuSound);
     hide(startMenu);
     show(creditsMenu);
 
     var goBackBtn = document.getElementsByClassName("go_back_btn")[1];
     goBackBtn.addEventListener("click", function() {
-        clickMenuSound.play();
+        playAudio(clickMenuSound);
         hide(creditsMenu);
         show(startMenu);
     });
@@ -349,6 +370,6 @@ function startGame() {
     show(greyFilter); // filter is now using the transiton property
     hide(startMenu);
     show(game);
-    startSound.play();
+    playAudio(startSound);
     playerGuess(index = 0);
 }
