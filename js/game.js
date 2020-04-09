@@ -268,10 +268,10 @@ function countdown() {
 
 // processing the player's answer
 function playerGuess(index) {
-    Transition();
-    addListeners(option); // answer buttons
     // Checking if there are any questions left to display
     if (index < max) {
+        Transition();
+        addListeners(option); // answer buttons
         // creating a stopwatch
         timeDisplayed.style.color = "#09d402";
         timeDisplayed.innerHTML = "15s";
