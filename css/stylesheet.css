@@ -216,6 +216,7 @@ p {
 }
 
 #retry_menu {
+    width: 44rem;
     text-align: center;
     background-color: lightblue;
     border: 0.25rem solid black;
@@ -225,6 +226,7 @@ p {
 
 #retry_menu p {
     font-size: 3.5rem;
+    padding: 0 2rem;
 }
 
 #win {
@@ -239,7 +241,7 @@ p {
     display: block;
     width: 40rem;
     padding: 1.4rem;
-    margin: 0.5em;
+    margin: 0.5em auto;
     font-size: 4rem;
 }
 

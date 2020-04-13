@@ -1,5 +1,5 @@
 console.log("Loading...")
-/*
+
 FBInstant.initializeAsync()
     .then(function() {
         var progress = 0;
@@ -16,7 +16,7 @@ FBInstant.initializeAsync()
             progress += 10;
         }, 100)
     });
-*/
+
 // Miscellaneous
 var timeLeft;
 var stopWatch;
