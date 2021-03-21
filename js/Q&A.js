@@ -1,11 +1,11 @@
 questions = [
 	{
-        question: "Care este cel mai puternic drog din cele de mai jos ?",
+        question: "Care este un drog din cele de mai jos ?",
         answers: [
-            "AlaCool",
-            "Ca-n Abis",
-            "CoFaina",
-            "LeeSeTe"
+            "Acool",
+            "Paracetamol",
+            "Coldrex",
+            "Aspirina"
         ],
         key: 3
     },
@@ -13,9 +13,9 @@ questions = [
         question: "Care este capitala tarii Tuvalu ?",
         answers: [
             "Funafuti",
-            "Futefuti",
-            "Fugifa",
-            "Funiefufa"
+            "Barcelona",
+            "Madrid",
+            "Seul"
         ],
         key: 0
     },
@@ -25,7 +25,7 @@ questions = [
             "Covid-19",
             "Sars-Cov-2",
             "Coronavirus",
-            "A"
+            "N1H1"
         ],
         key: 1
     }
