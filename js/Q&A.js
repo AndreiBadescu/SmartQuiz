@@ -7,7 +7,7 @@ questions = [
             "Coldrex",
             "Aspirina"
         ],
-        key: 3
+        key: 0
     },
     {
         question: "Care este capitala tarii Tuvalu ?",
